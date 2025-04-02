@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Texas State Parks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .marker {
+		background-image: url('https://docs.mapbox.com/help/demos/custom-markers-gl-js/mapbox-icon.png');
+		background-size: cover;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		cursor: pointer;
+	  }
+
+	  .mapboxgl-popup {
+		max-width: 200px;
+	  }
+
+	  .mapboxgl-popup-content {
+		text-align: center;
+		font-family: 'Open Sans', sans-serif;
+	  }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1Ijoiam9yZ2Vsb3BlejExOTEiLCJhIjoiY204NGpvenBuMTE3NTJzcHdudjk2Z2JmdCJ9._uTZPQv1xfYiPtTedRiG7g';
+
+	  const geojson = {
+		 type: 'FeatureCollection',
+		 features: [
+		   {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-106.503, 31.901]
+			},
+			 properties: {
+			   title: 'Franklin Mountains State Park',
+			   description: '"Located near El Paso, TX, the Franklin Mountains offer spectacular desert scenery with great hiking and camping throughout the park." <img src= https://images.alltrails.com/eyJidWNrZXQiOiJhc3NldHMuYWxsdHJhaWxzLmNvbSIsImtleSI6InVwbG9hZHMvcGhvdG8vaW1hZ2UvNzE0MzU2OTcvY2E4MTBmNjUzMTJiOTA2ZWRlOGQ4YWVlZTJkNDNlMWEuanBnIiwiZWRpdHMiOnsidG9Gb3JtYXQiOiJqcGVnIiwicmVzaXplIjp7IndpZHRoIjoxNjAsImhlaWdodCI6MTYwLCJmaXQiOiJjb3ZlciJ9LCJyb3RhdGUiOm51bGwsImpwZWciOnsidHJlbGxpc1F1YW50aXNhdGlvbiI6dHJ1ZSwib3ZlcnNob290RGVyaW5naW5nIjp0cnVlLCJvcHRpbWlzZVNjYW5zIjp0cnVlLCJxdWFudGlzYXRpb25UYWJsZSI6M319fQ==>'
+			}
+		  },
+		  { 
+		     type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-103.998, 29.452]
+			},
+			 properties: {
+			   title: 'Big Bend Ranch State Park',
+			   description: '"The largest state park in Texas, Big Bend Ranch is home to large herds of free roaming Longhorn cattle. The park is also considered an excellent spot for river rafting along the Rio Grande." <img src= https://www.listchallenges.com/f/items/8a8ed76e-eb1c-4677-95d8-f0e484d0c9df.jpg>'
+			}
+		  },
+		  {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-101.661, 34.941]
+			},
+			 properties: {
+			   title: 'Palo Duro Canyon State Park',
+			   description: '"Home to the second largest canyon system in the United States, Palo Duro is sometimes referred to as the Grand Canyon of Texas. Visitors can checkout Lighthouse Rock or enjoy horseback riding." <img src= https://render.fineartamerica.com/images/rendered/small/poster/images/artworkimages/square/3/sunset-at-the-lighthouse-in-palo-duro-canyon-11231-rob-greebon.jpg>'
+			}
+		  },
+		  {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-97.178, 27.671]
+			},
+			 properties: {
+			   title: 'Mustang Island State Park',
+			   description: '"This coastal destination offers plentiful fishing, surfing and bird-watching" <img src= https://s3-media0.fl.yelpcdn.com/bphoto/cxCRsS2RkFjQrJ5ZNI9OgA/180s.jpg>'
+			}
+		  },
+		  {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-95.612, 29.378]
+			},
+			 properties: {
+			   title: 'Brazos Bend State Park',
+			   description: '"Brazos Bend offers a diverse mix of ecosystem ranging from wetlands & marshes to forests and praires. The park is a known resting stop for migratory birds flying in from the North." <img src= https://s3-media0.fl.yelpcdn.com/bphoto/zLrRSuJ0uorop_XeIkQ0ZQ/180s.jpg>'
+			}
+		  },
+		  {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-97.809, 32.251]
+			},
+			 properties: {
+			   title: 'Dinosaur Valley State Park',
+			   description: '"Visitors can take a walk through the past when visting Dinosaur Valley. The park is home to ancient fossilized dinosaur tracks as well as rock formations containing fossils." <img src= https://s3-media0.fl.yelpcdn.com/bphoto/dI4VlJ6H1S_KYVwNH62igA/180s.jpg>'
+			}
+		  },
+		  {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-97.246, 30.110]
+			},
+			 properties: {
+			   title: 'Bastrop State Park',
+			   description: '"Bastrop is a popular camping and hiking destination. The park is home to an isolated population of pine trees named the "Lost Pines" <img src= https://www.listchallenges.com/f/items/6feff207-aa1e-435f-a38f-bec4769bb233.jpg>'
+			}
+		  },
+		  {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-100.453, 29.609]
+			},
+			 properties: {
+			   title: 'Kickapoo Cavern State Park',
+			   description: '"There are over 20 caves located throughout the park. The signature attraction is Kickpoo Cavern which extends almost a quarter mile underground." <img src= https://s3-media0.fl.yelpcdn.com/bphoto/6ynL84kd4IN56rKwp2l-bQ/180s.jpg>'
+			}
+		  },
+		  {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-98.489, 29.867]
+			},
+			 properties: {
+			   title: 'Guadalupe River State Park',
+			   description: '"The Guadalupe River is a popular destination for tubing, fishing, and kayaking." <img src= https://s3-media0.fl.yelpcdn.com/bphoto/GuFmO9w6cf0sq7oEk51dlg/180s.jpg>'
+			}
+		  },
+		  {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-101.056, 34.437]
+			},
+			 properties: {
+			   title: 'Caprock Canyons',
+			   description: '"Visitors to Caprock Canyon can enjoy hiking and horseback riding. Notable wildlife include plains bison." <img src= https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/c3/83/54/caprock-canyons-state.jpg?w=200&h=-1&s=1>'
+			}
+		  },
+		  {
+			 type: 'Feature',
+			 geometry: {
+			   type: 'Point',
+			   coordinates: [-102.815, 31.626]
+			},
+			 properties: {
+			   title: 'Monohan Sandhills State Park',
+			   description: '"Nestled in the heart of West Texas, these impressive sand dunes provide spectacular scenery in an otherwise barren land." <img src= https://dynamic-media-cdn.tripadvisor.com/media/photo-o/07/22/b2/73/silver-lake-state-park.jpg?w=200&h=200&s=1>'
+			}
+		   }		  
+		]
+	};
+    
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/jorgelopez1191/cm8y9sk6w002h01r14hrlg6a6',
+        center: [-99.15, 31.39],
+        zoom: 6
+      });
+
+	  // add markers to map
+	  for (const feature of geojson.features) {
+  
+        // create a HTML element for each feature
+		const el = document.createElement('div');
+		el.className = 'marker';
+
+		// make a marker for each feature and add to the map
+		new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
+
+		new mapboxgl.Marker(el)
+		  .setLngLat(feature.geometry.coordinates)
+		  .setPopup(
+			new mapboxgl.Popup({ offset: 25 }) // add popups
+			  .setHTML(
+				`<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+			  )
+		  )
+		  .addTo(map);
+	  }
+      
+    </script>
+  </body>
+</html>
