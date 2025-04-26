@@ -2,7 +2,7 @@
 <div id="chartContainer">
   <script src="https://d3js.org/d3.v4.js"></script>
   <script src="https://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
-  <script type="text/javascript">
+  <script type="application/javascript">
     var svg = dimple.newSvg("#chartContainer", 590, 400);
     d3.csv("https://raw.githubusercontent.com/jorgelopez1191/cartography/refs/heads/main/Car_Brands.csv", function (data) {
       var myChart = new dimple.chart(svg, data);
